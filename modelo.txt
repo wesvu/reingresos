@@ -1,0 +1,26 @@
+model <- keras_model_sequential() 
+
+# Add layers to the model
+model %>% 
+    layer_dense(units = columnas, activation = 'relu', input_shape = c(columnas)) %>% 
+    layer_dropout(rate=0.8) %>% 
+    layer_dense(units = 100, activation = 'relu') %>% 
+    layer_dropout(rate=0.8) %>% 
+    layer_dense(units = 10, activation = 'relu') %>% 
+    layer_dropout(rate=0.2) %>% 
+    layer_dense(units = 2, activation = 'sigmoid')
+
+
+# Compile the model
+model %>% compile(
+    loss = 'binary_crossentropy',
+    optimizer = optimizer_adam(lr = 0.0010000000474974513, beta_1 = 0.8999999761581421, beta_2 = 0.9990000128746033, epsilon = 1e-08),
+    metrics = 'accuracy'
+)
+
+model %>% fit(
+    reing.training, reing.trainLabels, 
+    epochs = 500, batch_size = 64, 
+    validation_split = 0.2,
+    verbose = 1	 
+)
